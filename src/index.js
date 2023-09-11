@@ -2,45 +2,66 @@ import React from "react";
 import  creatRoot  from "react-dom";
 import './index.css';
 
-const firstBook = {
-  img:"https://m.media-amazon.com/images/I/51p2SDOCV9L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-  title: 'I Love you to the moon and Back',
-  author: 'Amelia hepworth',
-};
-const secondBook = {
-  img:"https://m.media-amazon.com/images/I/510g8NLbpNL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
-  title: 'Our class is a family',
-  author: 'Shannon Olsen ',
-};
+const books = [
 
+  {
+    id: 1,
+    img:"https://m.media-amazon.com/images/I/51p2SDOCV9L._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
+    title: 'I Love you to the moon and Back',
+    author: 'Amelia hepworth',
+  },
+
+  {
+    id: 2,
+    img:"https://m.media-amazon.com/images/I/510g8NLbpNL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg",
+    title: 'Our class is a family',
+    author: 'Shannon Olsen ',
+  },
+  
+  {
+    id: 3,
+    img:"https://m.media-amazon.com/images/I/41aTMRnLWWL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
+    title: 'The Vanishing Half: A Novel',
+    author: 'Brit Bennett',
+  },
+  
+]
 
 function BookList(){
   return (
    <section className="booklist">
-    <Book img={firstBook.img} title={firstBook.title} author={firstBook.author}> 
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum, dignissimos. Quos dolorum a dolores ut blanditiis labore eum quae ea.
-      </p>
-    
-    </Book>
-    <Book img={secondBook.img} title={secondBook.title} author={secondBook.author} />
+    {books.map((book) => {
+      return (
+        <Book key={book.id}  {...book}>
 
+        </Book>
+      );
+    })}
    </section>
   );
 
 }
   
-// const Book = ({ img, title, author, children }) => {
-  const Book = (props) => {
-  const { img, title, author,} = props;
-  console.log(props)
+  const Book = ({ img, title, author}) => {
+    //attribite , eventHandler
+    // onClick, onMouseOver
+    const clickHandler = (e) =>{
+      console.log(e)
+      console.log(e.target)
+      alert('Hello word');
+    };
+    const complexExample = (author) => {
+      console.log(author);
+    };
   return (
-    <article className="book">
+    <article className="book" onMouseOver={() =>{
+      console.log(author)
+    }}>
        <img src={img} alt="" /> 
-         <h1>{title}</h1>
+         <h1 onClick={() => console.log(title)}>{title}</h1>
          <h4>{author}</h4>
-         {props.children} 
-
+         <button type='button' onClick={clickHandler}>reference example</button>
+         <button type='button' onClick={() => complexExample(author)}>more complex example</button>
     </article>
   );
 }
